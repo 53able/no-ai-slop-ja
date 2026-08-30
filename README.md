@@ -43,9 +43,11 @@ AI検出器ではありません。文章がAIによって書かれたかどう�
 npx skills add 53able/no-ai-slop-ja --skill no-ai-slop-ja --global --yes
 ```
 
-#### PromptScriptが検出された場合
+#### PromptScriptを使っている場合
 
-PromptScriptは、現在の[`skills` CLIの定義](https://github.com/vercel-labs/skills/blob/main/src/agents.ts)ではグローバルインストールに対応していません。そのため、上のコマンドでは他のエージェントへのインストールが成功していても、最後に`PromptScript does not support global skill installation`と表示されることがあります。スキル本体や、成功と表示されたエージェントには影響しません。
+[PromptScript](https://getpromptscript.dev/latest/getting-started/)は、一つの`.prs`定義からClaude Code、GitHub Copilot、Cursorなどが使う設定ファイルを生成するツールです。PromptScriptを使っていない場合は、この節を読み飛ばしてください。
+
+`skills` CLIは、実行中のプロジェクトに`.promptscript/`ディレクトリまたは`promptscript.yaml`があるとPromptScriptを検出します。現在の[`skills` CLIの定義](https://github.com/vercel-labs/skills/blob/main/src/agents.ts)では、PromptScriptはグローバルインストールに対応していません。そのため、上のコマンドでは他のエージェントへのインストールが成功していても、最後に`PromptScript does not support global skill installation`と表示されることがあります。スキル本体や、成功と表示されたエージェントには影響しません。
 
 PromptScriptでも使う場合は、対象プロジェクトのルートで`--global`を外し、PromptScriptを指定します。
 
