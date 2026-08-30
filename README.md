@@ -89,6 +89,7 @@ no-ai-slop-jaを使い、次の文章を書き換えず、該当するパター�
 - 文章の正確性、引用元、法的妥当性を自動で保証しません。
 - 小説、広告、スピーチ、法令、社内規程では、一般的な文章とは異なるリズムや定型が必要です。
 - 改稿結果は、公開前に書き手自身が事実、意図、語調を確認してください。
+- 単発パイロットの結果は、記録したモデル、実行環境、コミット、ケースだけに適用され、一般的な性能や誤検知率を示しません。
 
 ## 検証
 
@@ -107,12 +108,22 @@ python3 scripts/build_plugin.py
 
 `tests/cases.json` は、期待するパターン名、保持対象、反例を記述した宣言的なケース集です。テストは構造と網羅性を検証しますが、言語モデルを実行して出力品質を測るものではありません。
 
+実モデルの出力を任意で確認する場合は、[`tests/evaluation/README.md`](tests/evaluation/README.md) の単発パイロット手順を使います。生出力を保存し、別の判定者が意味保持、過剰修正、誤検知、形式を評価します。これは特定の一回を記録する手順であり、ベンチマークではありません。
+
+保存した生出力と判定結果は、次のコマンドで検証・集計できます。スクリプト自体はモデルを実行せず、欠けた結果を生成しません。
+
+```sh
+python3 scripts/validate_evaluation.py --raw raw-output.json --judged judged-results.json
+```
+
 ## 構成
 
 - [`skills/no-ai-slop-ja/SKILL.md`](skills/no-ai-slop-ja/SKILL.md): 手順とパターン
 - [`skills/no-ai-slop-ja/eval.md`](skills/no-ai-slop-ja/eval.md): 改稿・検出別の評価表
 - [`skills/no-ai-slop-ja/agents/openai.yaml`](skills/no-ai-slop-ja/agents/openai.yaml): OpenAI用メタデータ
 - [`tests/cases.json`](tests/cases.json): 正例、反例、声と事実の保持ケース
+- [`tests/evaluation/README.md`](tests/evaluation/README.md): 任意の単発パイロット評価手順
+- [`scripts/validate_evaluation.py`](scripts/validate_evaluation.py): 生出力と独立判定の検証・集計CLI
 - [`.codex-plugin/plugin.json`](.codex-plugin/plugin.json): プラグインメタデータ
 
 ## 原著とライセンス

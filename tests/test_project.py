@@ -55,6 +55,8 @@ class ProjectTests(unittest.TestCase):
             ROOT / "examples" / "edit.md",
             ROOT / "examples" / "detect.md",
             CASES,
+            ROOT / "tests" / "evaluation" / "README.md",
+            ROOT / "scripts" / "validate_evaluation.py",
         ]
         self.assertEqual([], [str(path.relative_to(ROOT)) for path in required if not path.is_file()])
         self.assertFalse((ROOT / "agents").exists(), "OpenAIメタデータをルートagents/へ置かないでください")
