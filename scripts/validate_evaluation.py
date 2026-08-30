@@ -19,6 +19,8 @@ RAW_KIND = "no-ai-slop-ja-raw-output"
 JUDGED_KIND = "no-ai-slop-ja-judged-results"
 SCHEMA_VERSION = 1
 PROMPT_CONSTRUCTION = "skill-md-verbatim-plus-case-json"
+RUNNER_READ_CONSTRUCTION = "runner-read-verbatim-repo-files"
+PROMPT_CONSTRUCTIONS = {PROMPT_CONSTRUCTION, RUNNER_READ_CONSTRUCTION}
 STATUSES = {"pass", "fail", "not-applicable"}
 CHECK_NAMES = (
     "actor",
@@ -188,9 +190,10 @@ def validate_raw(
         raise ValidationError("rawのschemaVersionまたはkindが対応スキーマと一致しません")
     source_commit = validate_source(data["source"], cases_data, "raw.source")
     validate_identity(data["runner"], "raw.runner")
-    if data["promptConstruction"] != PROMPT_CONSTRUCTION:
+    if data["promptConstruction"] not in PROMPT_CONSTRUCTIONS:
         raise ValidationError(
-            f"raw.promptConstructionは{PROMPT_CONSTRUCTION!r}でなければなりません"
+            "raw.promptConstructionは対応する構築方式でなければなりません: "
+            f"{sorted(PROMPT_CONSTRUCTIONS)}"
         )
     if not isinstance(data["outputs"], list) or not data["outputs"]:
         raise ValidationError("raw.outputsは1件以上の配列でなければなりません")

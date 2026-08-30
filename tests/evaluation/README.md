@@ -38,7 +38,11 @@ source commit、二つのファイルハッシュ、case IDは、生出力JSON�
 上記スキルを適用し、TARGET CASE IDのinputだけを処理してください。modeと出力形式を守り、応答本文だけを返してください。
 ```
 
-生出力JSONの`promptConstruction`には`skill-md-verbatim-plus-case-json`を記録します。モデルへ送った後の応答は、整形、誤字修正、前後の削除をせず`outputs[].output`へ保存します。
+本文を一つのプロンプトとして連結した場合、生出力JSONの`promptConstruction`には`skill-md-verbatim-plus-case-json`を記録します。
+
+ファイル読取ツールを持つエージェントでは、変更のないチェックアウトから同じ二ファイルを全文で読み、対象case IDだけを処理するよう指示できます。この場合は`runner-read-verbatim-repo-files`と記録します。実行指示にsource commit、二つのパス、case ID、未加工の応答だけを返す条件を含めます。この方式はツール呼び出しを介するため、単一文字列として連結する方式と同一だとはみなしません。
+
+モデルへ送った後の応答は、整形、誤字修正、前後の削除をせず`outputs[].output`へ保存します。
 
 ## 4. 生出力を保存する
 
@@ -48,7 +52,7 @@ source commit、二つのファイルハッシュ、case IDは、生出力JSON�
 - `kind`: `no-ai-slop-ja-raw-output`
 - `source`: `sourceCommit`、二つの相対パスとSHA-256、`casesSchemaVersion`
 - `runner`: `identity`と`model`
-- `promptConstruction`: `skill-md-verbatim-plus-case-json`
+- `promptConstruction`: `skill-md-verbatim-plus-case-json`または`runner-read-verbatim-repo-files`
 - `outputs`: `caseId`と未加工の`output`
 
 `outputs`は実行前に選んだcase IDと一対一にします。失敗した呼び出しを黙って除外せず、再試行した場合は実行記録であることが分かる別ファイルとして保存します。

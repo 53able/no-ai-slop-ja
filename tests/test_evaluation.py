@@ -223,6 +223,25 @@ class EvaluationInfrastructureTests(unittest.TestCase):
                 self.assertEqual(2, result.returncode)
                 self.assertIn(expected_message, result.stderr)
 
+    def test_runner_read_prompt_construction_is_supported(self) -> None:
+        raw = self.raw_data()
+        raw["promptConstruction"] = self.module.RUNNER_READ_CONSTRUCTION
+        with tempfile.TemporaryDirectory() as directory:
+            raw_path = Path(directory) / "raw.json"
+            judged_path = Path(directory) / "judged.json"
+            raw_path.write_text(json.dumps(raw, ensure_ascii=False), encoding="utf-8")
+            judged_path.write_text(
+                json.dumps(self.judged_data(raw_path), ensure_ascii=False), encoding="utf-8"
+            )
+            result = subprocess.run(
+                [sys.executable, str(SCRIPT), "--raw", str(raw_path), "--judged", str(judged_path)],
+                cwd=ROOT,
+                capture_output=True,
+                text=True,
+                check=False,
+            )
+            self.assertEqual(0, result.returncode, result.stderr)
+
     def test_cli_help_describes_non_generating_behavior(self) -> None:
         result = subprocess.run(
             [sys.executable, str(SCRIPT), "--help"],
