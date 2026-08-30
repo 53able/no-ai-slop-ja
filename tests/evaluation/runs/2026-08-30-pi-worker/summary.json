@@ -1,0 +1,69 @@
+{
+  "sourceCommit": "6a6a81f4227855cf5292c5d7e99ec1f0808890e2",
+  "totalCases": 8,
+  "passedCases": 8,
+  "failedCases": 0,
+  "checkCounts": {
+    "actor": {
+      "fail": 0,
+      "not-applicable": 0,
+      "pass": 8
+    },
+    "action": {
+      "fail": 0,
+      "not-applicable": 0,
+      "pass": 8
+    },
+    "tenseAspect": {
+      "fail": 0,
+      "not-applicable": 1,
+      "pass": 7
+    },
+    "modality": {
+      "fail": 0,
+      "not-applicable": 1,
+      "pass": 7
+    },
+    "certainty": {
+      "fail": 0,
+      "not-applicable": 0,
+      "pass": 8
+    },
+    "causalRelation": {
+      "fail": 0,
+      "not-applicable": 6,
+      "pass": 2
+    },
+    "numbers": {
+      "fail": 0,
+      "not-applicable": 3,
+      "pass": 5
+    },
+    "quotes": {
+      "fail": 0,
+      "not-applicable": 8,
+      "pass": 0
+    },
+    "sources": {
+      "fail": 0,
+      "not-applicable": 7,
+      "pass": 1
+    },
+    "patternHandling": {
+      "fail": 0,
+      "not-applicable": 0,
+      "pass": 8
+    },
+    "overEditing": {
+      "fail": 0,
+      "not-applicable": 0,
+      "pass": 8
+    },
+    "outputFormat": {
+      "fail": 0,
+      "not-applicable": 0,
+      "pass": 8
+    }
+  },
+  "scope": "single-run-pilot-not-a-benchmark"
+}

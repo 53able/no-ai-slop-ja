@@ -1,0 +1,163 @@
+{
+  "schemaVersion": 1,
+  "kind": "no-ai-slop-ja-judged-results",
+  "source": {
+    "sourceCommit": "6a6a81f4227855cf5292c5d7e99ec1f0808890e2",
+    "skillPath": "skills/no-ai-slop-ja/SKILL.md",
+    "skillSha256": "47461b35299d56854bc6d2c1c7009357fae9ffc7fac8e873eb4777dd9c35d30b",
+    "casesPath": "tests/cases.json",
+    "casesSha256": "e5257753339e12dd60f7e0c7628024de9a692d2d6a051c38faf85f3285e8c706",
+    "casesSchemaVersion": 2
+  },
+  "judge": {
+    "identity": "pi-subagent/worker independent judge",
+    "model": "openai-codex/gpt-5.6-sol:high"
+  },
+  "rawSha256": "148f4ab58ef9806b6e01fd2054b867c972bc1dc7152cfd0b782dc216d2dc554b",
+  "judgments": [
+    {
+      "caseId": "p01-passive-hidden-actor",
+      "checks": {
+        "actor": "pass",
+        "action": "pass",
+        "tenseAspect": "pass",
+        "modality": "pass",
+        "certainty": "pass",
+        "causalRelation": "pass",
+        "numbers": "not-applicable",
+        "quotes": "not-applicable",
+        "sources": "not-applicable",
+        "patternHandling": "pass",
+        "overEditing": "pass",
+        "outputFormat": "pass"
+      },
+      "notes": "「新しい運用ルールが決定されました」を過去の実施済みの決定としてそのまま引用し、決定者を補っていない。検出モードのため、前置きの「審査の結果」を書き換えず、期待パターンと4項目の形式を満たしている。"
+    },
+    {
+      "caseId": "p08-overpacked-sentence",
+      "checks": {
+        "actor": "pass",
+        "action": "pass",
+        "tenseAspect": "pass",
+        "modality": "pass",
+        "certainty": "pass",
+        "causalRelation": "pass",
+        "numbers": "pass",
+        "quotes": "not-applicable",
+        "sources": "not-applicable",
+        "patternHandling": "pass",
+        "overEditing": "pass",
+        "outputFormat": "pass"
+      },
+      "notes": "全文を該当箇所として示し、「効率化につながる」という結論と「と考えられます」を残すよう明記している。"
+    },
+    {
+      "caseId": "p10-ending-repetition",
+      "checks": {
+        "actor": "pass",
+        "action": "pass",
+        "tenseAspect": "pass",
+        "modality": "not-applicable",
+        "certainty": "pass",
+        "causalRelation": "not-applicable",
+        "numbers": "not-applicable",
+        "quotes": "not-applicable",
+        "sources": "not-applicable",
+        "patternHandling": "pass",
+        "overEditing": "pass",
+        "outputFormat": "pass"
+      },
+      "notes": "「結果の確認と共有、判断の記録が重要です」で三つの行動と重要性を保ち、反復だけをまとめている。"
+    },
+    {
+      "caseId": "p15-weasel-attribution",
+      "checks": {
+        "actor": "pass",
+        "action": "pass",
+        "tenseAspect": "pass",
+        "modality": "pass",
+        "certainty": "pass",
+        "causalRelation": "not-applicable",
+        "numbers": "not-applicable",
+        "quotes": "not-applicable",
+        "sources": "pass",
+        "patternHandling": "pass",
+        "overEditing": "pass",
+        "outputFormat": "pass"
+      },
+      "notes": "「専門家はこの方法が有効だと指摘しています。」を現在の帰属主張としてそのまま引用し、「専門家が誰なのか、出典が示されていません」と不足を特定して、専門家や出典を作っていない。4項目の検出形式も満たしている。"
+    },
+    {
+      "caseId": "c01-technical-katakana",
+      "checks": {
+        "actor": "pass",
+        "action": "pass",
+        "tenseAspect": "pass",
+        "modality": "pass",
+        "certainty": "pass",
+        "causalRelation": "not-applicable",
+        "numbers": "pass",
+        "quotes": "not-applicable",
+        "sources": "not-applicable",
+        "patternHandling": "pass",
+        "overEditing": "pass",
+        "outputFormat": "pass"
+      },
+      "notes": "「該当する箇所は見つかりませんでした」とし、API、Redis、p95、120ミリ秒を誤検出も改変もしていない。"
+    },
+    {
+      "caseId": "c03-literary-fragment",
+      "checks": {
+        "actor": "pass",
+        "action": "pass",
+        "tenseAspect": "pass",
+        "modality": "pass",
+        "certainty": "pass",
+        "causalRelation": "not-applicable",
+        "numbers": "pass",
+        "quotes": "not-applicable",
+        "sources": "not-applicable",
+        "patternHandling": "pass",
+        "overEditing": "pass",
+        "outputFormat": "pass"
+      },
+      "notes": "所定の該当なし応答だけを返し、「雨。まだ雨。」の反復と間、および「駅の時計だけが、昨日と同じ速さで動いている」の対象・昨日という時点・継続中の動作を誤検出も改変もしていない。"
+    },
+    {
+      "caseId": "r01-preserve-facts-and-voice",
+      "checks": {
+        "actor": "pass",
+        "action": "pass",
+        "tenseAspect": "pass",
+        "modality": "pass",
+        "certainty": "pass",
+        "causalRelation": "not-applicable",
+        "numbers": "pass",
+        "quotes": "not-applicable",
+        "sources": "not-applicable",
+        "patternHandling": "pass",
+        "overEditing": "pass",
+        "outputFormat": "pass"
+      },
+      "notes": "本文を一字も変えず、2026年4月3日、17人、8件と「びびりました」を保ち、「変更はありません」としている。"
+    },
+    {
+      "caseId": "a01-authorship-refusal",
+      "checks": {
+        "actor": "pass",
+        "action": "pass",
+        "tenseAspect": "not-applicable",
+        "modality": "pass",
+        "certainty": "pass",
+        "causalRelation": "not-applicable",
+        "numbers": "pass",
+        "quotes": "not-applicable",
+        "sources": "not-applicable",
+        "patternHandling": "pass",
+        "overEditing": "pass",
+        "outputFormat": "pass"
+      },
+      "notes": "「100点満点」の採点依頼に対し、「判定したり、点数を付けたりすることはできません」と確率・点数を出さずに拒否し、「観察可能なパターン」の検出を提案している。"
+    }
+  ]
+}

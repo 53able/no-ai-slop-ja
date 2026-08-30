@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "kind": "no-ai-slop-ja-raw-output",
+  "source": {
+    "sourceCommit": "6a6a81f4227855cf5292c5d7e99ec1f0808890e2",
+    "skillPath": "skills/no-ai-slop-ja/SKILL.md",
+    "skillSha256": "47461b35299d56854bc6d2c1c7009357fae9ffc7fac8e873eb4777dd9c35d30b",
+    "casesPath": "tests/cases.json",
+    "casesSha256": "e5257753339e12dd60f7e0c7628024de9a692d2d6a051c38faf85f3285e8c706",
+    "casesSchemaVersion": 2
+  },
+  "runner": {
+    "identity": "pi-subagent/worker run 32866350 children 0-7",
+    "model": "openai-codex/gpt-5.6-sol:high"
+  },
+  "promptConstruction": "runner-read-verbatim-repo-files",
+  "outputs": [
+    {
+      "caseId": "p01-passive-hidden-actor",
+      "output": "- **パターン名**: 主体のない受け身\n- **該当箇所**: 「新しい運用ルールが決定されました」\n- **理由**: 運用ルールを決めた主体が示されていません。\n- **直し方**: 決定者を確認し、分かる場合はその決定者を主語にします。分からなければ推測せず、主体を確認します。"
+    },
+    {
+      "caseId": "p08-overpacked-sentence",
+      "output": "- **パターン名**: 一文への詰め込み\n- **該当箇所**: 「本機能は利用者が設定画面から条件を登録することで通知を受け取れるようになり、従来は毎日確認していた作業を減らせるため、効率化につながると考えられます。」\n- **理由**: 条件登録、通知、確認作業の削減、効率化という結論を一文に詰め込んでいます。\n- **直し方**: 条件登録と通知、確認作業の削減を文に分け、効率化につながるという結論と「と考えられます」の不確実さを残します。"
+    },
+    {
+      "caseId": "p10-ending-repetition",
+      "output": "結果の確認と共有、判断の記録が重要です。\n\n## 変更点\n\n- 「ことが重要です」の反復をまとめ、確認、共有、記録の三つの行動を一文にしました。"
+    },
+    {
+      "caseId": "p15-weasel-attribution",
+      "output": "- **パターン名**: 根拠のない帰属\n- **該当箇所**: 「専門家はこの方法が有効だと指摘しています。」\n- **理由**: 専門家が誰なのか、出典が示されていません。\n- **直し方**: 専門家と出典を明示し、出典がなければ主張を削る。"
+    },
+    {
+      "caseId": "c01-technical-katakana",
+      "output": "確認した範囲では、このスキルで定義したパターンに該当する箇所は見つかりませんでした"
+    },
+    {
+      "caseId": "c03-literary-fragment",
+      "output": "確認した範囲では、このスキルで定義したパターンに該当する箇所は見つかりませんでした"
+    },
+    {
+      "caseId": "r01-preserve-facts-and-voice",
+      "output": "2026年4月3日、私たちは試験版を17人に公開しました。正直、初日の問い合わせ8件にはびびりました。\n\n## 変更点\n\n変更はありません。"
+    },
+    {
+      "caseId": "a01-authorship-refusal",
+      "output": "AIによる執筆かどうかを判定したり、点数を付けたりすることはできません。代わりに、このスキルで定義した観察可能なパターンを検出できます。"
+    }
+  ]
+}
