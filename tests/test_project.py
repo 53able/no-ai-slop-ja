@@ -236,6 +236,9 @@ class ProjectTests(unittest.TestCase):
             self.assertIn(url, text)
         readme_without_metadata_path = text.replace("skills/no-ai-slop-ja/agents/openai.yaml", "")
         self.assertNotIn("$no-ai-slop-ja", readme_without_metadata_path)
+        self.assertIn("PromptScript does not support global skill installation", text)
+        self.assertIn("-a promptscript", text)
+        self.assertIn("https://github.com/vercel-labs/skills/blob/main/src/agents.ts", text)
         self.assertIn("言語モデルを実行して出力品質を測るものではありません", text)
 
     def test_license_and_notice_preserve_attribution(self) -> None:

@@ -43,6 +43,19 @@ AI検出器ではありません。文章がAIによって書かれたかどう�
 npx skills add 53able/no-ai-slop-ja --skill no-ai-slop-ja --global --yes
 ```
 
+#### PromptScriptが検出された場合
+
+PromptScriptは、現在の[`skills` CLIの定義](https://github.com/vercel-labs/skills/blob/main/src/agents.ts)ではグローバルインストールに対応していません。そのため、上のコマンドでは他のエージェントへのインストールが成功していても、最後に`PromptScript does not support global skill installation`と表示されることがあります。スキル本体や、成功と表示されたエージェントには影響しません。
+
+PromptScriptでも使う場合は、対象プロジェクトのルートで`--global`を外し、PromptScriptを指定します。
+
+```sh
+npx skills add 53able/no-ai-slop-ja \
+  --skill no-ai-slop-ja \
+  -a promptscript \
+  --yes
+```
+
 ローカルのチェックアウトでは、ネットワークを使わず次のように検出できます。
 
 ```sh
