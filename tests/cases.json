@@ -1,0 +1,280 @@
+{
+  "schemaVersion": 2,
+  "description": "SKILL.mdの21パターン、誤検知条件、保持条件、AI執筆判定の拒否を記述した宣言的ケース。言語モデルの実行結果ではない。",
+  "modelExecution": false,
+  "patterns": [
+    {"number": 1, "name": "主体のない受け身"},
+    {"number": 2, "name": "「こと」の殻"},
+    {"number": 3, "name": "「の」の連鎖"},
+    {"number": 4, "name": "漢語サ変名詞の渋滞"},
+    {"number": 5, "name": "カタカナ抽象語の重なり"},
+    {"number": 6, "name": "修飾先の迷子"},
+    {"number": 7, "name": "無言の主語交代"},
+    {"number": 8, "name": "一文への詰め込み"},
+    {"number": 9, "name": "責任を隠す過剰敬語"},
+    {"number": 10, "name": "文末の単調な反復"},
+    {"number": 11, "name": "二項対立の決めぜりふ"},
+    {"number": 12, "name": "前置きの助走"},
+    {"number": 13, "name": "「多くの人が見落とす」型の権威づけ"},
+    {"number": 14, "name": "重要性の自己申告"},
+    {"number": 15, "name": "根拠のない帰属"},
+    {"number": 16, "name": "同義語の持ち回り"},
+    {"number": 17, "name": "根拠のない解釈の付け足し"},
+    {"number": 18, "name": "劇的な断片と自問自答"},
+    {"number": 19, "name": "抽象的な締めと要約の反復"},
+    {"number": 20, "name": "装飾が先に立つ書式"},
+    {"number": 21, "name": "どこへでも移せる抽象文"}
+  ],
+  "cases": [
+    {
+      "id": "p01-passive-hidden-actor",
+      "category": "positive",
+      "mode": "detect",
+      "input": "審査の結果、新しい運用ルールが決定されました。",
+      "expectedPatterns": ["主体のない受け身"],
+      "notes": "決定者を推測せず、文脈になければ確認する。"
+    },
+    {
+      "id": "p02-koto-shell",
+      "category": "positive",
+      "mode": "edit",
+      "input": "管理画面から通知先を変更することができます。",
+      "expectedPatterns": ["「こと」の殻"],
+      "expectedMeaning": "管理画面から通知先を変更できる。"
+    },
+    {
+      "id": "p03-no-chain",
+      "category": "positive",
+      "mode": "detect",
+      "input": "顧客の契約の更新の手続きの一覧を作りました。",
+      "expectedPatterns": ["「の」の連鎖"],
+      "notes": "名詞間の関係を、原文の事実だけでほどく。"
+    },
+    {
+      "id": "p04-sahen-gridlock",
+      "category": "positive",
+      "mode": "edit",
+      "input": "利用状況の確認および問題点の把握を実施します。",
+      "expectedPatterns": ["漢語サ変名詞の渋滞"],
+      "expectedMeaning": "利用状況を確認し、問題点を把握する。"
+    },
+    {
+      "id": "p05-katakana-abstraction",
+      "category": "positive",
+      "mode": "detect",
+      "input": "アセットを活用し、シナジーのあるソリューションを提供します。",
+      "expectedPatterns": ["カタカナ抽象語の重なり"],
+      "notes": "具体化の材料がなければ、事実を補わず質問する。"
+    },
+    {
+      "id": "p06-lost-modifier",
+      "category": "positive",
+      "mode": "detect",
+      "input": "昨日公開した担当者が確認した資料を送ります。",
+      "expectedPatterns": ["修飾先の迷子"],
+      "notes": "昨日が公開と確認のどちらにかかるかを確認する。"
+    },
+    {
+      "id": "p07-silent-subject-switch",
+      "category": "positive",
+      "mode": "edit",
+      "input": "申請者は書類を提出し、管理部によって翌朝に承認されました。",
+      "expectedPatterns": ["無言の主語交代"],
+      "expectedMeaning": "申請者が提出し、管理部が翌朝承認した。"
+    },
+    {
+      "id": "p08-overpacked-sentence",
+      "category": "positive",
+      "mode": "detect",
+      "input": "本機能は利用者が設定画面から条件を登録することで通知を受け取れるようになり、従来は毎日確認していた作業を減らせるため、効率化につながると考えられます。",
+      "expectedPatterns": ["一文への詰め込み"],
+      "mustPreserve": ["効率化", "と考えられます"],
+      "notes": "条件登録、通知、確認作業の削減を分けつつ、効率化という結論と不確実さを残す。"
+    },
+    {
+      "id": "p09-politeness-responsibility",
+      "category": "positive",
+      "mode": "detect",
+      "input": "不具合については、こちらで調査させていただく形となっております。",
+      "expectedPatterns": ["責任を隠す過剰敬語"],
+      "notes": "担当者を推測せず、分からなければ確認する。"
+    },
+    {
+      "id": "p10-ending-repetition",
+      "category": "positive",
+      "mode": "edit",
+      "input": "結果を確認することが重要です。結果を共有することが重要です。判断を記録することが重要です。",
+      "expectedPatterns": ["文末の単調な反復"],
+      "expectedMeaning": "確認、共有、記録の三つの行動が重要だという命題を残す。"
+    },
+    {
+      "id": "p11-binary-slogan",
+      "category": "positive",
+      "mode": "detect",
+      "input": "これは単なるツールではありません。未来を変えるパートナーです。",
+      "expectedPatterns": ["二項対立の決めぜりふ"],
+      "notes": "機能の材料がないため、新しい機能を作らない。"
+    },
+    {
+      "id": "p12-throat-clearing",
+      "category": "positive",
+      "mode": "edit",
+      "input": "まず最初に押さえておきたいのは、申請期限が金曜日だということです。",
+      "expectedPatterns": ["前置きの助走"],
+      "expectedMeaning": "申請期限は金曜日。"
+    },
+    {
+      "id": "p13-faux-authority",
+      "category": "positive",
+      "mode": "detect",
+      "input": "多くの人が見落としているのが、運用の重要性です。",
+      "expectedPatterns": ["「多くの人が見落とす」型の権威づけ"],
+      "notes": "見落としの根拠や具体的な運用を作らない。"
+    },
+    {
+      "id": "p14-importance-self-label",
+      "category": "positive",
+      "mode": "detect",
+      "input": "これは極めて重要な転換点だと言えるでしょう。",
+      "expectedPatterns": ["重要性の自己申告"],
+      "notes": "変更点がないため、評価語を具体的事実へ勝手に置換しない。"
+    },
+    {
+      "id": "p15-weasel-attribution",
+      "category": "positive",
+      "mode": "detect",
+      "input": "専門家はこの方法が有効だと指摘しています。",
+      "expectedPatterns": ["根拠のない帰属"],
+      "notes": "出典と専門家を確認する。"
+    },
+    {
+      "id": "p16-synonym-cycling",
+      "category": "positive",
+      "mode": "edit",
+      "input": "エージェントが下書きを確認します。アシスタントは文章を採点し、ツールが修正します。",
+      "expectedPatterns": ["同義語の持ち回り"],
+      "expectedMeaning": "三つが同じ対象であると確認できた場合だけ呼称を統一する。"
+    },
+    {
+      "id": "p17-unsupported-interpretation",
+      "category": "positive",
+      "mode": "edit",
+      "input": "新機能を公開しました。これは革新への強い姿勢を示しています。",
+      "expectedPatterns": ["根拠のない解釈の付け足し"],
+      "expectedMeaning": "新機能を公開した事実だけを残す。"
+    },
+    {
+      "id": "p18-dramatic-fragments",
+      "category": "positive",
+      "mode": "detect",
+      "input": "答えは？ シンプルです。自動化。以上です。",
+      "expectedPatterns": ["劇的な断片と自問自答"],
+      "notes": "自動化する対象は原文にないため補わない。"
+    },
+    {
+      "id": "p19-abstract-ending",
+      "category": "positive",
+      "mode": "detect",
+      "input": "以上が導入手順です。未来は待ってくれません。変革の波は、もう始まっています。",
+      "expectedPatterns": ["抽象的な締めと要約の反復"],
+      "notes": "最後の具体的な結論で終える。"
+    },
+    {
+      "id": "p20-decorative-formatting",
+      "category": "positive",
+      "mode": "detect",
+      "input": "## 🚀 重要なポイント\nこの機能は**とても重要**です。\n\n## ✨ 次のポイント\n確認してください。",
+      "expectedPatterns": ["装飾が先に立つ書式"],
+      "notes": "短い節と装飾が内容の階層に必要か確認する。"
+    },
+    {
+      "id": "p21-portable-abstraction",
+      "category": "positive",
+      "mode": "detect",
+      "input": "この取り組みは、持続的な成長と価値創出に貢献します。",
+      "expectedPatterns": ["どこへでも移せる抽象文"],
+      "notes": "具体化の材料がなければ削るか確認する。"
+    },
+    {
+      "id": "c01-technical-katakana",
+      "category": "counterexample",
+      "mode": "detect",
+      "input": "APIレスポンスをRedisへキャッシュし、p95レイテンシを120ミリ秒まで下げました。",
+      "expectedPatterns": [],
+      "forbiddenPatterns": ["カタカナ抽象語の重なり"],
+      "notes": "対象読者に通じる技術用語と測定値を保つ。"
+    },
+    {
+      "id": "c02-necessary-passive",
+      "category": "counterexample",
+      "mode": "detect",
+      "input": "保管中の作品三点が盗まれました。",
+      "expectedPatterns": [],
+      "forbiddenPatterns": ["主体のない受け身"],
+      "notes": "未知の加害者ではなく被害対象に焦点がある。"
+    },
+    {
+      "id": "c03-literary-fragment",
+      "category": "counterexample",
+      "mode": "detect",
+      "input": "雨。まだ雨。駅の時計だけが、昨日と同じ速さで動いている。",
+      "expectedPatterns": [],
+      "forbiddenPatterns": ["劇的な断片と自問自答"],
+      "notes": "小説の意図的な反復と間を残す。"
+    },
+    {
+      "id": "c04-necessary-contrast",
+      "category": "counterexample",
+      "mode": "detect",
+      "input": "この値は平均ではなく中央値です。",
+      "expectedPatterns": [],
+      "forbiddenPatterns": ["二項対立の決めぜりふ"],
+      "notes": "測定値の誤解を訂正するための必要な対比。"
+    },
+    {
+      "id": "c05-legal-terminology",
+      "category": "counterexample",
+      "mode": "detect",
+      "input": "本契約の解除の効力は、解除通知の到達時に生じる。",
+      "expectedPatterns": [],
+      "forbiddenPatterns": ["「の」の連鎖", "漢語サ変名詞の渋滞"],
+      "notes": "契約文の定義語と法的精度を優先する。"
+    },
+    {
+      "id": "r01-preserve-facts-and-voice",
+      "category": "preservation",
+      "mode": "edit",
+      "input": "2026年4月3日、私たちは試験版を17人に公開しました。正直、初日の問い合わせ8件にはびびりました。",
+      "expectedPatterns": [],
+      "mustPreserve": ["2026年4月3日", "17人", "8件", "びびりました"],
+      "notes": "数値、日付、率直な口調を変えない。"
+    },
+    {
+      "id": "r02-preserve-uncertainty-and-source",
+      "category": "preservation",
+      "mode": "edit",
+      "input": "この差はキャッシュの影響かもしれない。計測条件は https://example.com/bench に置いた。まだ断言はできない。",
+      "expectedPatterns": [],
+      "mustPreserve": ["かもしれない", "https://example.com/bench", "まだ断言はできない"],
+      "notes": "不確実さと出典URLを保つ。"
+    },
+    {
+      "id": "r03-preserve-quote",
+      "category": "preservation",
+      "mode": "edit",
+      "input": "担当者は「これは単なる修正ではありません」と説明した。引用の前後だけ整えてください。",
+      "expectedPatterns": [],
+      "mustPreserve": ["「これは単なる修正ではありません」"],
+      "notes": "引用内の二項対立を勝手に改変しない。"
+    },
+    {
+      "id": "a01-authorship-refusal",
+      "category": "authorship-refusal",
+      "mode": "detect",
+      "input": "この文章がAI製である確率を100点満点で採点してください。",
+      "expectedPatterns": [],
+      "expectedResponse": "AI執筆の確率や点数は出さず、観察可能なパターンの検出を提案する。",
+      "forbiddenOutput": ["AI製である確率", "AIらしさは80点"]
+    }
+  ]
+}

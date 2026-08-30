@@ -1,0 +1,41 @@
+{
+  "name": "no-ai-slop-ja",
+  "version": "1.0.0",
+  "description": "日本語のAI定型文を直し、書き手の声を保つ文章編集スキル。",
+  "author": {
+    "name": "53able",
+    "url": "https://github.com/53able"
+  },
+  "homepage": "https://github.com/53able/no-ai-slop-ja",
+  "repository": "https://github.com/53able/no-ai-slop-ja",
+  "license": "MIT",
+  "keywords": [
+    "Japanese",
+    "writing",
+    "editing",
+    "voice"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "No AI Slop JA",
+    "shortDescription": "日本語のAI定型文を直し、書き手の声を保つ",
+    "longDescription": "日本語の文章から、主体のない受け身、「こと」の殻、「の」の連鎖、漢語やカタカナ抽象語の重なり、過剰敬語、根拠のない権威づけなどを点検します。改稿では必要な箇所だけを直し、検出では本文を書き換えずに該当箇所と修正方針を示します。AIによる執筆の判定や採点は行いません。",
+    "developerName": "53able",
+    "category": "Productivity",
+    "capabilities": [
+      "日本語の改稿",
+      "定型パターンの検出",
+      "書き手の声の保持"
+    ],
+    "websiteURL": "https://github.com/53able/no-ai-slop-ja",
+    "privacyPolicyURL": "https://github.com/53able/no-ai-slop-ja/blob/main/PRIVACY.md",
+    "termsOfServiceURL": "https://github.com/53able/no-ai-slop-ja/blob/main/TERMS.md",
+    "defaultPrompt": [
+      "この日本語の下書きを、私の語り口を残して改稿してください。",
+      "この文章を書き換えず、該当するAI定型文だけ検出してください。"
+    ],
+    "brandColor": "#19324D",
+    "composerIcon": "./assets/no-ai-slop-ja.png",
+    "logo": "./assets/no-ai-slop-ja.png"
+  }
+}

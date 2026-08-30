@@ -1,0 +1,12 @@
+No AI Slop JA
+
+This project is derived from No AI Slop by Peter Yang:
+https://github.com/petergyang/no-ai-slop
+
+Upstream revision used for this adaptation:
+d30eddb9e04562234f2070b5ee63ca4649d9a05e
+https://github.com/petergyang/no-ai-slop/tree/d30eddb9e04562234f2070b5ee63ca4649d9a05e
+
+The upstream MIT copyright notice is retained in LICENSE.
+The Japanese-specific procedures, examples, tests, and metadata are maintained
+by 53able contributors.

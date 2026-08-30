@@ -1,0 +1,4 @@
+interface:
+  display_name: "No AI Slop JA"
+  short_description: "日本語のAI定型文を直し、書き手固有の声と事実関係を保ちます"
+  default_prompt: "$no-ai-slop-ja を使い、この日本語の下書きを書き手の語り口と事実関係を保って改稿してください。"
