@@ -225,21 +225,28 @@ class ProjectTests(unittest.TestCase):
             for pattern in stale:
                 self.assertNotRegex(text, pattern, f"古い識別子: {path.relative_to(ROOT)}")
 
-    def test_readme_scopes_invocation_by_product(self) -> None:
-        text = (ROOT / "README.md").read_text(encoding="utf-8")
+    def test_readmes_are_bilingual_and_scope_invocation_by_product(self) -> None:
+        english = (ROOT / "README.md").read_text(encoding="utf-8")
+        japanese = (ROOT / "README.ja.md").read_text(encoding="utf-8")
+        self.assertIn('<a href="./README.ja.md">日本語</a>', english)
+        self.assertIn('<a href="./README.md">English</a>', japanese)
+        for heading in ("### General-purpose installer", "### ChatGPT", "### Codex", "### Claude Code"):
+            self.assertIn(heading, english)
         for heading in ("### 汎用インストーラー", "### ChatGPT", "### Codex", "### Claude Code"):
-            self.assertIn(heading, text)
-        for url in (
-            "https://learn.chatgpt.com/docs/build-skills",
-            "https://code.claude.com/docs/en/skills",
-        ):
-            self.assertIn(url, text)
-        readme_without_metadata_path = text.replace("skills/no-ai-slop-ja/agents/openai.yaml", "")
-        self.assertNotIn("$no-ai-slop-ja", readme_without_metadata_path)
-        self.assertIn("PromptScript does not support global skill installation", text)
-        self.assertIn("-a promptscript", text)
-        self.assertIn("https://github.com/vercel-labs/skills/blob/main/src/agents.ts", text)
-        self.assertIn("言語モデルを実行して出力品質を測るものではありません", text)
+            self.assertIn(heading, japanese)
+        for text in (english, japanese):
+            for url in (
+                "https://learn.chatgpt.com/docs/build-skills",
+                "https://code.claude.com/docs/en/skills",
+            ):
+                self.assertIn(url, text)
+            readme_without_metadata_path = text.replace("skills/no-ai-slop-ja/agents/openai.yaml", "")
+            self.assertNotIn("$no-ai-slop-ja", readme_without_metadata_path)
+            self.assertIn("PromptScript does not support global skill installation", text)
+            self.assertIn("-a promptscript", text)
+            self.assertIn("https://github.com/vercel-labs/skills/blob/main/src/agents.ts", text)
+        self.assertIn("do not run a language model or measure output quality", english)
+        self.assertIn("言語モデルを実行して出力品質を測るものではありません", japanese)
 
     def test_license_and_notice_preserve_attribution(self) -> None:
         license_text = (ROOT / "LICENSE").read_text(encoding="utf-8")

@@ -1,55 +1,63 @@
-# No AI Slop JA
+<p align="center">
+  <strong>English</strong> · <a href="./README.ja.md">日本語</a>
+</p>
 
-日本語の下書きから定型的な「AIっぽさ」を取り除き、書き手自身の語彙、リズム、迷い、ユーモアを残すためのAgent Skillです。
+<h1 align="center">No AI Slop JA</h1>
 
-文章を一律に短くしたり、丁寧で無難な文体へそろえたりはしません。観察できるパターンだけを手掛かりに、必要な箇所を最小限直します。
+<p align="center">
+  <strong>Remove formulaic AI-like Japanese without erasing the writer's voice.</strong>
+</p>
 
-## できること
+`no-ai-slop-ja` is an Agent Skill for removing formulaic “AI-like” patterns from Japanese drafts while preserving the writer's vocabulary, rhythm, hesitation, humor, and expertise.
 
-- **改稿**: 日本語固有の不自然さを直し、全文と変更点を返す
-- **検出**: 該当箇所、パターン名、理由、直し方だけを示す
-- **声の保持**: 書き手の語彙、文の長短、断定の強さ、ユーモア、専門性を守る
-- **根拠の保護**: 引用、数値、固有名詞、URL、出典を勝手に変えない
+It does not shorten every sentence or normalize the draft into uniformly polite, inoffensive prose. It uses observable patterns to make the smallest necessary edits.
 
-AI検出器ではありません。文章がAIによって書かれたかどうかを推測せず、「AIらしさ」の点数も出しません。
+## Capabilities
 
-## 対象にするパターン
+- **Edit**: Fix Japanese-specific awkwardness and return the complete revision with a short change summary
+- **Detect**: Report only the affected passage, pattern name, reason, and suggested fix
+- **Preserve voice**: Keep the writer's vocabulary, sentence-length variation, degree of certainty, humor, and expertise
+- **Protect evidence**: Do not silently alter quotations, numbers, proper nouns, URLs, or sources
 
-日本語固有のパターンを中心に点検します。
+This is not an AI detector. It does not guess whether a text was written by AI or assign an “AI-likeness” score.
 
-- 主体のない受け身
-- 「ことができます」などの「こと」の殻
-- 「の」の連鎖
-- 漢語サ変名詞の渋滞
-- カタカナ抽象語の重なり
-- 修飾先の迷子と無言の主語交代
-- 一文への詰め込み
-- 責任を隠す過剰敬語
-- 文末の単調な反復
-- 根拠のない「注目されています」「専門家は指摘します」
-- 二項対立、重要性の自己申告、抽象的な締め、装飾過多
+## Patterns it checks
 
-各パターンには誤検知を避ける条件があります。技術用語、法令文、引用、文学的な表現などを機械的に言い換えません。全21項目は [`SKILL.md`](skills/no-ai-slop-ja/SKILL.md) で確認できます。
+The Skill focuses on patterns specific to Japanese prose, including:
 
-## インストール
+- Passive constructions with no identifiable actor
+- Empty nominal shells such as 「ことができます」
+- Long chains of 「の」
+- Congestion of Sino-Japanese verbal nouns
+- Stacks of abstract katakana terms
+- Stranded modifiers and silent subject changes
+- Too many ideas packed into one sentence
+- Excessive honorifics that obscure responsibility
+- Monotonous sentence-ending repetition
+- Unsupported phrases such as 「注目されています」 and 「専門家は指摘します」
+- Forced binaries, self-declared importance, abstract conclusions, and decorative excess
 
-利用する製品の仕様は変わることがあります。以下は製品ごとの入口です。現在の配置方法と利用条件は、リンク先の公式文書を確認してください。
+Each pattern includes safeguards against false positives. The Skill does not mechanically rewrite technical terms, legal language, quotations, or deliberate literary expression. See all 21 patterns in [`SKILL.md`](skills/no-ai-slop-ja/SKILL.md).
 
-### 汎用インストーラー
+## Installation
 
-[`skills` CLI](https://skills.sh/docs) を使う環境では、次のコマンドでこのリポジトリから対象スキルを選べます。
+Product behavior can change. The sections below provide entry points for each supported environment; check the linked official documentation for current placement rules and requirements.
+
+### General-purpose installer
+
+In environments that use the [`skills` CLI](https://skills.sh/docs), select this Skill from the repository with:
 
 ```sh
 npx skills add 53able/no-ai-slop-ja --skill no-ai-slop-ja --global --yes
 ```
 
-#### PromptScriptを使っている場合
+#### If you use PromptScript
 
-[PromptScript](https://getpromptscript.dev/latest/getting-started/)は、一つの`.prs`定義からClaude Code、GitHub Copilot、Cursorなどが使う設定ファイルを生成するツールです。PromptScriptを使っていない場合は、この節を読み飛ばしてください。
+[PromptScript](https://getpromptscript.dev/latest/getting-started/) generates configuration files for tools such as Claude Code, GitHub Copilot, and Cursor from a single `.prs` definition. Skip this section if you do not use PromptScript.
 
-`skills` CLIは、実行中のプロジェクトに`.promptscript/`ディレクトリまたは`promptscript.yaml`があるとPromptScriptを検出します。現在の[`skills` CLIの定義](https://github.com/vercel-labs/skills/blob/main/src/agents.ts)では、PromptScriptはグローバルインストールに対応していません。そのため、上のコマンドでは他のエージェントへのインストールが成功していても、最後に`PromptScript does not support global skill installation`と表示されることがあります。スキル本体や、成功と表示されたエージェントには影響しません。
+The `skills` CLI detects PromptScript when the current project contains a `.promptscript/` directory or `promptscript.yaml`. In the current [`skills` CLI definition](https://github.com/vercel-labs/skills/blob/main/src/agents.ts), PromptScript does not support global installation. The command above may therefore finish with `PromptScript does not support global skill installation` even when installation succeeded for other detected agents. That message does not affect the Skill itself or agents reported as successful.
 
-PromptScriptでも使う場合は、対象プロジェクトのルートで`--global`を外し、PromptScriptを指定します。
+To install it for PromptScript, run the command from the target project root without `--global` and select PromptScript explicitly:
 
 ```sh
 npx skills add 53able/no-ai-slop-ja \
@@ -58,7 +66,7 @@ npx skills add 53able/no-ai-slop-ja \
   --yes
 ```
 
-ローカルのチェックアウトでは、ネットワークを使わず次のように検出できます。
+From a local checkout, list the detected Skill without network access:
 
 ```sh
 npx skills add . --list
@@ -66,47 +74,47 @@ npx skills add . --list
 
 ### ChatGPT
 
-ChatGPTで利用できるスキルの作成方法と提供条件は、[OpenAIのBuilding skills公式文書](https://learn.chatgpt.com/docs/build-skills) を確認してください。このリポジトリは `skills/no-ai-slop-ja` を配布単位にしていますが、GitHub URLからの直接インストールには対応状況を確認していません。公式文書で案内される方法に従ってください。
+See OpenAI's official [Building skills documentation](https://learn.chatgpt.com/docs/build-skills) for the current process and availability requirements. This repository distributes `skills/no-ai-slop-ja` as the Skill directory, but direct installation from a GitHub URL has not been verified. Follow the method described in the official documentation.
 
 ### Codex
 
-Codexのスキル配置と呼び出しは、[OpenAIのBuilding skills公式文書](https://learn.chatgpt.com/docs/build-skills) を参照してください。インストール後は通常の日本語で依頼できます。リポジトリ内のOpenAI用メタデータは `skills/no-ai-slop-ja/agents/openai.yaml` にあります。
+See OpenAI's official [Building skills documentation](https://learn.chatgpt.com/docs/build-skills) for Skill placement and invocation in Codex. After installation, invoke the Skill with a normal Japanese request. OpenAI-specific metadata is stored in `skills/no-ai-slop-ja/agents/openai.yaml`.
 
 ### Claude Code
 
-Claude Codeのスキル配置と呼び出しは、[AnthropicのSkills公式文書](https://code.claude.com/docs/en/skills) を参照してください。文書で案内される個人用またはプロジェクト用の場所へ `skills/no-ai-slop-ja` ディレクトリを配置し、自然言語で改稿または検出を依頼します。
+See Anthropic's official [Skills documentation](https://code.claude.com/docs/en/skills) for placement and invocation. Put the `skills/no-ai-slop-ja` directory in the documented personal or project location, then request either editing or detection in natural language.
 
-## 使い方
+## Usage
 
-### 改稿する
-
-```text
-no-ai-slop-jaを使い、次の文章を私の語り口を残して改稿してください。
-
-（本文）
-```
-
-出力は、改稿後の全文と短い「変更点」です。例は [`examples/edit.md`](examples/edit.md) にあります。
-
-### 検出だけ行う
+### Edit a draft
 
 ```text
-no-ai-slop-jaを使い、次の文章を書き換えず、該当するパターンだけ検出してください。
+Use no-ai-slop-ja to revise the following Japanese text while preserving my voice.
 
-（本文）
+(Text)
 ```
 
-検出では原文を書き換えません。例は [`examples/detect.md`](examples/detect.md) にあります。
+The output contains the complete revised text and a short change summary. See [`examples/edit.md`](examples/edit.md) for an example in Japanese.
 
-## 限界
+### Detect patterns without rewriting
 
-- AIによる執筆か、人間による執筆かは判定できません。
-- 文章の正確性、引用元、法的妥当性を自動で保証しません。
-- 小説、広告、スピーチ、法令、社内規程では、一般的な文章とは異なるリズムや定型が必要です。
-- 改稿結果は、公開前に書き手自身が事実、意図、語調を確認してください。
-- 単発パイロットの結果は、記録したモデル、実行環境、コミット、ケースだけに適用され、一般的な性能や誤検知率を示しません。
+```text
+Use no-ai-slop-ja to inspect the following Japanese text without rewriting it. Report only the matching patterns.
 
-## 検証
+(Text)
+```
+
+Detection mode does not rewrite the source text. See [`examples/detect.md`](examples/detect.md) for an example in Japanese.
+
+## Limitations
+
+- It cannot determine whether a text was written by AI or by a person.
+- It does not guarantee factual accuracy, source validity, or legal suitability.
+- Fiction, advertising, speeches, legislation, and internal policies may require rhythms and conventions that differ from general prose.
+- Before publication, the writer must review the result for facts, intent, and tone.
+- A recorded one-off pilot applies only to its documented model, runtime, commit, and cases. It does not establish general performance or a false-positive rate.
+
+## Validation
 
 ```sh
 python3 -m unittest discover -s tests -v
@@ -115,36 +123,38 @@ npx --yes skills add . --list
 uvx --from skills-ref agentskills validate ./skills/no-ai-slop-ja
 ```
 
-プラグインZIPを作る場合:
+To build the plugin ZIP:
 
 ```sh
 python3 scripts/build_plugin.py
 ```
 
-`tests/cases.json` は、期待するパターン名、保持対象、反例を記述した宣言的なケース集です。テストは構造と網羅性を検証しますが、言語モデルを実行して出力品質を測るものではありません。
+`tests/cases.json` is a declarative case set that records expected pattern names, content that must be preserved, and counterexamples. The tests validate structure and coverage; they do not run a language model or measure output quality.
 
-実モデルの出力を任意で確認する場合は、[`tests/evaluation/README.md`](tests/evaluation/README.md) の単発パイロット手順を使います。生出力を保存し、別の判定者が意味保持、過剰修正、誤検知、形式を評価します。これは特定の一回を記録する手順であり、ベンチマークではありません。
+For an optional one-off evaluation with a real model, follow [`tests/evaluation/README.md`](tests/evaluation/README.md). The procedure saves raw outputs and asks a separate judge to assess meaning preservation, over-editing, false positives, and output format. It records one specific run and is not a benchmark.
 
-最初の記録済みパイロットでは、`openai-codex/gpt-5.6-sol:high`を使って事前に選んだ8ケースを別々の会話で実行し、独立判定で`fail`となったケースは0件でした。生出力、判定、集計、制限は[`tests/evaluation/runs/2026-08-30-pi-worker/`](tests/evaluation/runs/2026-08-30-pi-worker/)に保存しています。この一回の結果を一般的な成功率や誤検知率として扱うことはできません。
+The first recorded pilot used `openai-codex/gpt-5.6-sol:high` to run eight preselected cases in separate conversations. An independent judgment marked zero cases as `fail`. Raw outputs, judgments, aggregate results, and limitations are stored in [`tests/evaluation/runs/2026-08-30-pi-worker/`](tests/evaluation/runs/2026-08-30-pi-worker/). This single run must not be interpreted as a general success rate or false-positive rate.
 
-保存した生出力と判定結果は、次のコマンドで検証・集計できます。スクリプト自体はモデルを実行せず、欠けた結果を生成しません。
+Validate and aggregate saved raw outputs and judgments with:
 
 ```sh
 python3 scripts/validate_evaluation.py --raw raw-output.json --judged judged-results.json
 ```
 
-## 構成
+The script does not run a model or generate missing results.
 
-- [`skills/no-ai-slop-ja/SKILL.md`](skills/no-ai-slop-ja/SKILL.md): 手順とパターン
-- [`skills/no-ai-slop-ja/eval.md`](skills/no-ai-slop-ja/eval.md): 改稿・検出別の評価表
-- [`skills/no-ai-slop-ja/agents/openai.yaml`](skills/no-ai-slop-ja/agents/openai.yaml): OpenAI用メタデータ
-- [`tests/cases.json`](tests/cases.json): 正例、反例、声と事実の保持ケース
-- [`tests/evaluation/README.md`](tests/evaluation/README.md): 任意の単発パイロット評価手順
-- [`scripts/validate_evaluation.py`](scripts/validate_evaluation.py): 生出力と独立判定の検証・集計CLI
-- [`.codex-plugin/plugin.json`](.codex-plugin/plugin.json): プラグインメタデータ
+## Repository layout
 
-## 原著とライセンス
+- [`skills/no-ai-slop-ja/SKILL.md`](skills/no-ai-slop-ja/SKILL.md): Procedure and pattern catalog (Japanese)
+- [`skills/no-ai-slop-ja/eval.md`](skills/no-ai-slop-ja/eval.md): Evaluation rubric for editing and detection (Japanese)
+- [`skills/no-ai-slop-ja/agents/openai.yaml`](skills/no-ai-slop-ja/agents/openai.yaml): OpenAI metadata
+- [`tests/cases.json`](tests/cases.json): Positive cases, counterexamples, and voice/evidence preservation cases
+- [`tests/evaluation/README.md`](tests/evaluation/README.md): Optional one-off pilot procedure (Japanese)
+- [`scripts/validate_evaluation.py`](scripts/validate_evaluation.py): CLI for validating and aggregating raw outputs and independent judgments
+- [`.codex-plugin/plugin.json`](.codex-plugin/plugin.json): Plugin metadata
 
-このプロジェクトは、Peter Yang氏の [petergyang/no-ai-slop](https://github.com/petergyang/no-ai-slop) を基に、日本語の文法、語順、敬語、語彙選択に合わせて再設計した派生物です。参照した原著の版は [`d30eddb9e04562234f2070b5ee63ca4649d9a05e`](https://github.com/petergyang/no-ai-slop/tree/d30eddb9e04562234f2070b5ee63ca4649d9a05e) です。
+## Upstream project and license
 
-原著と本プロジェクトはMIT Licenseで提供されます。詳細は [`LICENSE`](LICENSE) と [`NOTICE`](NOTICE) を参照してください。
+This project is a derivative of Peter Yang's [petergyang/no-ai-slop](https://github.com/petergyang/no-ai-slop), redesigned for Japanese grammar, word order, honorifics, and vocabulary choices. It is based on upstream revision [`d30eddb9e04562234f2070b5ee63ca4649d9a05e`](https://github.com/petergyang/no-ai-slop/tree/d30eddb9e04562234f2070b5ee63ca4649d9a05e).
+
+The upstream project and this derivative are available under the MIT License. See [`LICENSE`](LICENSE) and [`NOTICE`](NOTICE).
